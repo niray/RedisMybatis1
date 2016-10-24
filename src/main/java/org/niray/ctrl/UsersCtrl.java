@@ -11,8 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Mac on 16/10/24.
@@ -74,6 +78,28 @@ public class UsersCtrl {
 //    if (redisMapper.get("user_list").equals("")) {
 //        redisMapper.save("user_list", "hi" + name, 30 * 24 * 60 * 60);
 //    }
+
+
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    @ResponseBody
+    public String uploadTest(@RequestParam(value = "desc") String desc,
+                             @RequestParam(value = "file") MultipartFile file) {
+
+        if (file.isEmpty()) {
+            return "file empty";
+        } else {
+            try {
+                File folderFile = new File("/Users/huway_iosdev2/Desktop/tmp/");
+                if (!folderFile.exists()) folderFile.mkdir();
+                File tmpFile = new File(folderFile, UUID.randomUUID().toString() + ".jpg");
+                file.transferTo(tmpFile);
+            } catch (IOException e) {
+                return "server error:" + e.toString();
+            }
+        }
+
+        return "succeed :" + desc;
+    }
 
 
 }
