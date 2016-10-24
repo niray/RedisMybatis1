@@ -2,6 +2,7 @@ package org.niray.ctrl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import org.apache.log4j.Logger;
 import org.niray.entity.Blog;
 import org.niray.redis.RedisMapper;
 import org.niray.service.IBlogService;
@@ -20,6 +21,9 @@ import java.util.List;
  */
 @Controller
 public class BlogsCtrl {
+
+
+    private final static Logger logger = Logger.getLogger(BlogsCtrl.class);
 
     @Autowired
     private RedisMapper redisMapper;
@@ -65,6 +69,7 @@ public class BlogsCtrl {
     public String findUserBlog(@RequestParam(value = "uid", required = false, defaultValue = "0") int uid,
                                @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                                @RequestParam(value = "pageSize", required = false, defaultValue = "20") int pageSize) {
+        logger.debug(uid + "--------------");
         List<Blog> blogByUid = blogService.getBlogByUid(uid, page, pageSize);
         return JSONArray.toJSONString(blogByUid);
     }
