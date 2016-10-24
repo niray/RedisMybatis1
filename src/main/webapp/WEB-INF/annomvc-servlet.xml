@@ -31,15 +31,15 @@
     <!--<beans:property name="defaultEncoding" value="UTF-8"/>-->
     <!--</beans:bean>-->
 
-    <context:component-scan base-package="org.niray.ctrl"/>
-    <context:component-scan base-package="org.niray.redis"/>
+    <context:component-scan base-package="org.niray"/>
+    <!--<context:component-scan base-package="org.niray.ctrl"/>-->
+    <!--<context:component-scan base-package="org.niray.redis"/>-->
+    <!--<context:component-scan base-package="org.niray.service"/>-->
     <mvc:annotation-driven/>
     <context:annotation-config/>
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 
-    <!--<context:component-scan base-package="org.niray.service"/>-->
-    <!--<import resource="classpath:spring/spring-mybatis.xml"/>-->
-
+    <import resource="classpath:spring/spring-mybatis.xml"/>
 
     <!--<beans:bean id="fileService" class="com.cjpc.service.FileService" init-method="init" destroy-method="stop">-->
     <!--<property name="filePath" value="${file.path}"/>-->
@@ -81,7 +81,5 @@
     <!--<mvc:resources mapping="/images/**" location="/images/"/>-->
     <!--<mvc:resources mapping="/js/**" location="/js/"/>-->
     <!--<mvc:resources mapping="/css/**" location="/css/"/>-->
-
-    <!--<bean class="org.niray.service.impl.UserServiceImpl" autowire="constructor"/>-->
 
 </beans>

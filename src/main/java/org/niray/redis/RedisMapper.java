@@ -24,8 +24,7 @@ public class RedisMapper {
     public void save(final String key, final String value, final long time) {
         this.redisTemplate.execute(new RedisCallback<Object>() {
             public Object doInRedis(RedisConnection connection) throws DataAccessException {
-                connection.set(redisTemplate.getStringSerializer().serialize(key),
-                        redisTemplate.getStringSerializer().serialize(value));
+                connection.set(redisTemplate.getStringSerializer().serialize(key), redisTemplate.getStringSerializer().serialize(value));
                 connection.expire(redisTemplate.getStringSerializer().serialize(key), time);
                 return true;
             }
@@ -41,8 +40,7 @@ public class RedisMapper {
         return (String) this.redisTemplate.execute(new RedisCallback<Object>() {
             public Object doInRedis(RedisConnection connection) throws DataAccessException {
                 byte bytes[] = connection.get(redisTemplate.getStringSerializer().serialize(key));
-                if (bytes == null)
-                    return "";
+                if (bytes == null) return "";
                 return new String(bytes);
             }
         });

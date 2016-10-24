@@ -7,4 +7,9 @@
 		id, nickname, password
 	</sql>
 
+	<select id="findByNameLength" resultType="Integer">
+		SELECT COUNT(1) FROM user WHERE LENGTH (nickname)=4
+	</select>
+
+
 </mapper>
