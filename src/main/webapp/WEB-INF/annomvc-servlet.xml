@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+    <!-- <bean
+        class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <bean
+                    class="org.springframework.http.converter.StringHttpMessageConverter">
+                    <property name="supportedMediaTypes">
+                        <list>
+                            <value>application/json;charset=UTF-8</value>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean> -->
+    <!--<beans:bean id="messageSource"-->
+    <!--class="org.springframework.context.support.ReloadableResourceBundleMessageSource">-->
+    <!--<beans:property name="basename">-->
+    <!--<beans:value>classpath:messages</beans:value>-->
+    <!--</beans:property>-->
+    <!--<beans:property name="defaultEncoding" value="UTF-8"/>-->
+    <!--</beans:bean>-->
+
+    <context:component-scan base-package="org.niray.ctrl"/>
+    <context:component-scan base-package="org.niray.redis"/>
+    <mvc:annotation-driven/>
+    <context:annotation-config/>
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
+    <!--<context:component-scan base-package="org.niray.service"/>-->
+    <!--<import resource="classpath:spring/spring-mybatis.xml"/>-->
+
+
+    <!--<beans:bean id="fileService" class="com.cjpc.service.FileService" init-method="init" destroy-method="stop">-->
+    <!--<property name="filePath" value="${file.path}"/>-->
+    <!--</beans:bean>-->
+    <!--<beans:bean id="dataSynService" class="com.cjpc.service.DataSynService" init-method="init" destroy-method="stop">-->
+    <!--<property name="syncUrl" value="${syn.url}"/>-->
+    <!--</beans:bean>-->
+    <!--<bean id="jobFactory" class="com.cjpc.job.BkJobFactory"/>-->
+    <!--<beans:bean id="bkJob" class="org.springframework.scheduling.quartz.JobDetailBean">-->
+    <!--<property name="jobClass" value="com.cjpc.job.BkJob"/>-->
+    <!--<property name="jobDataAsMap">-->
+    <!--<map>-->
+    <!--<entry key="timeout" value="0"/>-->
+    <!--</map>-->
+    <!--</property>-->
+    <!--</beans:bean>-->
+    <!--<beans:bean id="bkTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">-->
+    <!--<property name="jobDetail" ref="bkJob"/>-->
+    <!--<property name="startDelay" value="6000"/>-->
+    <!--<property name="repeatInterval" value="18000"/>-->
+    <!--</beans:bean>-->
+    <!--<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">-->
+    <!--<property name="triggers">-->
+    <!--<list>-->
+    <!--<ref bean="bkTrigger"/>-->
+    <!--</list>-->
+    <!--</property>-->
+    <!--<property name="jobFactory" ref="jobFactory"/>-->
+    <!--</bean>-->
+    <!-- Enables the Spring MVC @Controller programming model -->
+    <!-- <mvc:annotation-driven conversion-service="conversionService" /> -->
+
+    <!-- Resolve logical view names to .jsp resources in the /WEB-INF/views directory -->
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+    <!--<property name="prefix" value="/"/>-->
+    <!--<property name="suffix" value=".jsp"/>-->
+    <!--</bean>-->
+    <!--<mvc:default-servlet-handler/>-->
+    <!--<mvc:resources mapping="/images/**" location="/images/"/>-->
+    <!--<mvc:resources mapping="/js/**" location="/js/"/>-->
+    <!--<mvc:resources mapping="/css/**" location="/css/"/>-->
+
+    <!--<bean class="org.niray.service.impl.UserServiceImpl" autowire="constructor"/>-->
+
+</beans>
