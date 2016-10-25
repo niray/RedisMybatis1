@@ -24,4 +24,12 @@
 		LIMIT #{page}, #{pageSize}
 	</select>
 
+    <select id="searchBlogByKey" parameterType="java.util.HashMap" resultType="java.util.HashMap" resultMap="blog">
+        SELECT *
+        FROM blog
+        WHERE
+        title LIKE '%${keyword}%' OR content LIKE '%${keyword}%'
+        LIMIT #{page},#{pageSize}
+    </select>
+
 </mapper>

@@ -27,4 +27,12 @@ public class BlogServiceImpl extends SuperServiceImpl<BlogMapper, Blog> implemen
         return blogMapper.getBlogByUid(params);
     }
 
+    public List<Blog> searchBlogByKey(String keyword, int page, int pageSize) {
+        HashMap params = new HashMap();
+        params.put("keyword", keyword);
+        params.put("page", page);
+        params.put("pageSize", pageSize);
+        return blogMapper.searchBlogByKey(params);
+    }
+
 }

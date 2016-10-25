@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.niray.entity.Blog;
 import org.niray.redis.RedisMapper;
 import org.niray.service.IBlogService;
+import org.niray.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import java.util.List;
  * Created by Mac on 16/10/24.
  */
 @Controller
+@RequestMapping(produces = {"application/json;charset=UTF-8"})
 public class BlogsCtrl {
 
 
@@ -84,5 +86,18 @@ public class BlogsCtrl {
         user.setContent(content);
         return blogService.updateById(user) ? "Success" : "Failure";
     }
+
+
+    @RequestMapping(value = "/blog/search", method = {RequestMethod.POST, RequestMethod.GET})
+    @ResponseBody
+    public String searchBlogByKeyword(@RequestParam(value = "keyword", required = false, defaultValue = "") String keyword,
+                                      @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                                      @RequestParam(value = "pageSize", required = false, defaultValue = "20") int pageSize) {
+        if (keyword == null || keyword.trim().length() == 0)
+            return ResultUtil.getReturnMsg(false, 1, "请输入搜索关键字");
+        List<Blog> blogByUid = blogService.searchBlogByKey(keyword, page, pageSize);
+        return JSONArray.toJSONString(blogByUid);
+    }
+
 
 }

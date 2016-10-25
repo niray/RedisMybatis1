@@ -12,4 +12,6 @@ public interface IBlogService extends ISuperService<Blog> {
 
     List<Blog> getBlogByUid(int uid, int page, int pageSize);
 
+    List<Blog> searchBlogByKey(String keyword, int page, int pageSize);
+
 }

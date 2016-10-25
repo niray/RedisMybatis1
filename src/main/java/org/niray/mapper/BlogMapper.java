@@ -13,4 +13,6 @@ public interface BlogMapper extends AutoMapper<Blog> {
 
     List<Blog> getBlogByUid(HashMap params);
 
+    List<Blog> searchBlogByKey(HashMap params);
+
 }
