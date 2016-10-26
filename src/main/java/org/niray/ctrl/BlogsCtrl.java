@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import org.apache.log4j.Logger;
 import org.niray.entity.Blog;
 import org.niray.entity.User;
+import org.niray.mongo.MongoDBService;
 import org.niray.redis.RedisMapper;
 import org.niray.service.IBlogService;
 import org.niray.util.ResultUtil;
@@ -29,8 +30,8 @@ public class BlogsCtrl {
 
     @Autowired
     private RedisMapper redisMapper;
-//    @Autowired
-//    private MongoDBService mongoDBService;
+    @Autowired
+    private MongoDBService mongoDBService;
 
     private IBlogService blogService;
 
@@ -101,17 +102,28 @@ public class BlogsCtrl {
         return JSONArray.toJSONString(blogByUid);
     }
 
-    @RequestMapping(value = "/mongo/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/mongo/add", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
     public String mongoDBAddPost(@RequestParam(value = "nickname", required = false, defaultValue = "default") String name,
                                  @RequestParam(value = "password", required = false, defaultValue = "pwd") String pwd) {
         User user = new User();
         user.setNickname(name);
         user.setPassword(pwd);
+        return JSONArray.toJSONString(mongoDBService.findAll());
+    }
 
-//         mongoDBService.addUser(user);
-//        return String.valueOf(mongoDBService.findUserByName("1"));
-        return "no mongo";
+    @RequestMapping(value = "/redis/set", method = {RequestMethod.POST, RequestMethod.GET})
+    @ResponseBody
+    public String redisSet(@RequestParam(value = "key", required = false, defaultValue = "default") String key,
+                           @RequestParam(value = "value", required = false, defaultValue = "default") String value) {
+        redisMapper.save(key, value, 30 * 60 * 24 * 24);
+        return ResultUtil.getReturnMsg(true, 2000, "success");
+    }
+
+    @RequestMapping(value = "/redis/get", method = {RequestMethod.POST, RequestMethod.GET})
+    @ResponseBody
+    public String redisGet(@RequestParam(value = "key", required = false, defaultValue = "default") String key) {
+        return redisMapper.get(key);
     }
 
 }

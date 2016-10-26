@@ -15,6 +15,7 @@
     <context:component-scan base-package="org.niray.ctrl"/>
     <context:component-scan base-package="org.niray.service"/>
     <context:component-scan base-package="org.niray.redis"/>
+    <context:component-scan base-package="org.niray.mongo"/>
 
     <context:property-placeholder location="classpath:config.properties"/>
 

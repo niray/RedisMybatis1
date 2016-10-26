@@ -1,11 +1,14 @@
-package org.niray.service;
+package org.niray.mongo;
 
+import org.niray.entity.MGUser;
 import org.niray.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by Mac on 16/10/25.
@@ -24,6 +27,10 @@ public class MongoDBService {
 
     public User findUserByName(String name) {
         return mongoTemplate.findOne(new Query(Criteria.where("name").is(name)), User.class, USER_COLLECTION);
+    }
+
+    public List<MGUser> findAll() {
+        return mongoTemplate.findAll(MGUser.class);
     }
 
 }
