@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import org.apache.log4j.Logger;
 import org.niray.entity.Blog;
+import org.niray.entity.User;
 import org.niray.redis.RedisMapper;
 import org.niray.service.IBlogService;
 import org.niray.util.ResultUtil;
@@ -24,11 +25,12 @@ import java.util.List;
 @RequestMapping(produces = {"application/json;charset=UTF-8"})
 public class BlogsCtrl {
 
-
     private final static Logger logger = Logger.getLogger(BlogsCtrl.class);
 
     @Autowired
     private RedisMapper redisMapper;
+//    @Autowired
+//    private MongoDBService mongoDBService;
 
     private IBlogService blogService;
 
@@ -99,5 +101,17 @@ public class BlogsCtrl {
         return JSONArray.toJSONString(blogByUid);
     }
 
+    @RequestMapping(value = "/mongo/add", method = RequestMethod.POST)
+    @ResponseBody
+    public String mongoDBAddPost(@RequestParam(value = "nickname", required = false, defaultValue = "default") String name,
+                                 @RequestParam(value = "password", required = false, defaultValue = "pwd") String pwd) {
+        User user = new User();
+        user.setNickname(name);
+        user.setPassword(pwd);
+
+//         mongoDBService.addUser(user);
+//        return String.valueOf(mongoDBService.findUserByName("1"));
+        return "no mongo";
+    }
 
 }
